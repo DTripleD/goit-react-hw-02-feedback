@@ -12,9 +12,8 @@ class App extends Component {
     bad: 0,
   };
 
-  onLeaveFeedback = evt => {
-    const name = evt.target.value;
-    this.setState({ [name]: this.state[name] + 1 });
+  onLeaveFeedback = option => {
+    this.setState({ [option]: this.state[option] + 1 });
   };
 
   countTotalFeedback = () => {
@@ -32,20 +31,23 @@ class App extends Component {
   render() {
     const btnNames = Object.keys(this.state);
     const { good, neutral, bad } = this.state;
+    const total = this.countTotalFeedback();
+    const positivePercentage = this.countPositiveFeedbackPercentage();
+
     return (
       <AppWrapper>
         <Section title="Please leave feedback">
           <Feedback options={btnNames} onLeaveFeedback={this.onLeaveFeedback} />
         </Section>
 
-        {this.countTotalFeedback() > 0 ? (
+        {total > 0 ? (
           <Section title="Statistics">
             <Statistic
               good={good}
               neutral={neutral}
               bad={bad}
-              total={this.countTotalFeedback()}
-              positivePercentage={this.countPositiveFeedbackPercentage()}
+              total={total}
+              positivePercentage={positivePercentage}
             />
           </Section>
         ) : (
