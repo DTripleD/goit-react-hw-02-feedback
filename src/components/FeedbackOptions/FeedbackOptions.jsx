@@ -1,25 +1,26 @@
-import { Component } from 'react';
 import { Button, ButtonWrapper } from './FeedbackOptions.styled';
+import PropTypes, { arrayOf } from 'prop-types';
 
-class Feedback extends Component {
-  render() {
-    return (
-      <div>
-        <ButtonWrapper>
-          {this.props.options.map(option => (
-            <Button
-              type="button"
-              onClick={this.props.onLeaveFeedback}
-              key={option}
-              value={option}
-            >
-              {option}
-            </Button>
-          ))}
-        </ButtonWrapper>
-      </div>
-    );
-  }
-}
+const Feedback = ({ onLeaveFeedback, options }) => (
+  <div>
+    <ButtonWrapper>
+      {options.map(option => (
+        <Button
+          type="button"
+          onClick={onLeaveFeedback}
+          key={option}
+          value={option}
+        >
+          {option}
+        </Button>
+      ))}
+    </ButtonWrapper>
+  </div>
+);
 
 export default Feedback;
+
+Feedback.propTypes = {
+  onLeaveFeedback: PropTypes.func,
+  options: arrayOf(PropTypes.string),
+};
